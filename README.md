@@ -26,7 +26,7 @@ Django==3.0.4, dnspython==1.16.0, pymongo==3.10.1
 Features:
 1) Form fields validations using HTML.
 2) IP address validation using Django backend.
-3) The permanent data is stored in a MongoDB which is hosted online on cloud.mongodb.com and is accessed using pymongo. A script is provided for accessing the data on MongoDB. Location: ..\checkData.py
+3) The permanent data is stored in a MongoDB which is hosted online on cloud.mongodb.com and is accessed using pymongo. A script is provided for accessing the data on MongoDB and storing it locally in a csv file. Location: ..\checkData.py
 
 How to execute:
 

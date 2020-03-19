@@ -21,45 +21,48 @@
           <div class="col-lg-12 col-sm-12">
 
             {% if success %}
-            <p class="mtopg">
-              Your form has been successfully submitted. Visit the company website at <a href="https://imagekit.io">ImageKit.io</a>
-            </p>
+              <!-- Case when the form has been filled successfully. -->
+              <p class="mtopg">
+                Your form has been successfully submitted. Visit the company website at <a href="https://imagekit.io" target="_blank">ImageKit.io</a>
+              </p>
 
             {% else %}
 
-            <form method="POST" action="{% url 'process_form' %}">
-              {% csrf_token %}
-              <fieldset>
-                <legend>ImageKit.io Assignment</legend>
-                <label for="name">Enter your Name: </label>
-                <input type="text" name="name" required>
-                <br/>
-                <label for="email">Enter your Email ID: </label>
-                <input type="email" name="email" required>
-                <br/>
-                <label for="password">Enter your Password: </label>
-                <input type="password" name="password" minlength="6" required>
-                <input type="text" name="captcha" value="0" class="hide">
-                <br/>
+              <form method="POST" action="{% url 'process_form' %}">
+                {% csrf_token %}
+                <fieldset>
+                  <legend>ImageKit.io Assignment</legend>
+                  <label for="name">Enter your Name: </label>
+                  <input type="text" name="name" required>
+                  <br/>
+                  <label for="email">Enter your Email ID: </label>
+                  <input type="email" name="email" required>
+                  <br/>
+                  <label for="password">Enter your Password: </label>
+                  <input type="password" name="password" minlength="6" required>
+                  <input type="text" name="captcha" value="0" class="hide">
+                  <br/>
 
-                {% if limitExceeded %}
-                <p class="mtopg">
-                  You have submitted the form more than three times in a day. Kindly verify the Google Recaptcha Checkbox before proceeding.<br/>
+                  {% if limitExceeded %}
+                    <!-- Case when the form has been filled more than 3 times from the same IP Address. Here, it introduces the Google Recaptcha for such cases. -->
+                    <p class="mtopg">
+                      You have submitted the form more than three times in a day. Kindly verify the Google Recaptcha Checkbox before proceeding.<br/>
+                    </p>
+
+                    <input type="text" name="captcha" value="1" class="hide">
+                    <div class="g-recaptcha" data-sitekey="6LdhauIUAAAAACuLa0XLhvQBR4LPMbAbtsSwNTv0"></div>
+                    <br/>
+                  {% endif %}
+                  <input type="submit" name="submit" class="btn btn-inverse">
+                </fieldset>
+              </form>
+
+              {% if captcha_failed %}
+                <!-- Case when the user fails to submit the google recaptcha successfully. -->
+                <p class="mtopr">
+                  Google Recaptcha verification failed. Kindly fill the form again.
                 </p>
-
-                <input type="text" name="captcha" value="1" class="hide">
-                <div class="g-recaptcha" data-sitekey="6LdhauIUAAAAACuLa0XLhvQBR4LPMbAbtsSwNTv0"></div>
-                <br/>
-                {% endif %}
-                <input type="submit" name="submit" class="btn btn-inverse">
-              </fieldset>
-            </form>
-
-            {% if captcha_failed %}
-            <p class="mtopr">
-              Google Recaptcha verification failed. Kindly fill the form again.
-            </p>
-            {% endif %}
+              {% endif %}
 
             
             {% endif %}

@@ -1,6 +1,6 @@
 from django.db import models
 
-# Create your models here.
+# Database model for storing information regarding the number of visits/form filling according to the IP Addresses.
 
 class LimitCheck(models.Model):
 	ip_db = models.TextField(default = "NA")
