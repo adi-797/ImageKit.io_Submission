@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <title>ImageKit.io Assignment - Aditya Arora</title>
+  </head>
+  
+  <body>
+
+    <div class="col-md-12" align="center">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 col-sm-12">
+
+            {% if success %}
+            <p class="mtopg">
+              Your form has been successfully submitted. Visit the company website at <a href="https://imagekit.io">ImageKit.io</a>
+            </p>
+
+            {% else %}
+
+            <form method="POST" action="{% url 'process_form' %}">
+              {% csrf_token %}
+              <fieldset>
+                <legend>ImageKit.io Assignment</legend>
+                <label for="name">Enter your Name: </label>
+                <input type="text" name="name" required>
+                <br/>
+                <label for="email">Enter your Email ID: </label>
+                <input type="email" name="email" required>
+                <br/>
+                <label for="password">Enter your Password: </label>
+                <input type="password" name="password" minlength="6" required>
+                <input type="text" name="captcha" value="0" class="hide">
+                <br/>
+
+                {% if limitExceeded %}
+                <p class="mtopg">
+                  You have submitted the form more than three times in a day. Kindly verify the Google Recaptcha Checkbox before proceeding.<br/>
+                </p>
+
+                <input type="text" name="captcha" value="1" class="hide">
+                <div class="g-recaptcha" data-sitekey="6LdhauIUAAAAACuLa0XLhvQBR4LPMbAbtsSwNTv0"></div>
+                <br/>
+                {% endif %}
+                <input type="submit" name="submit" class="btn btn-inverse">
+              </fieldset>
+            </form>
+
+            {% if captcha_failed %}
+            <p class="mtopr">
+              Google Recaptcha verification failed. Kindly fill the form again.
+            </p>
+            {% endif %}
+
+            
+            {% endif %}
+
+          </div>
+        </div>        
+      </div>
+    </div>
+
+  </body>
+
+</html>
+
+<style type="text/css">
+  .mtopg {
+    margin-top: 25px;
+    color: green;
+  }
+
+  .mtopr {
+    margin-top: 25px;
+    color: red;
+  }
+
+  .hide {
+    display: none;
+  }
+</style>
