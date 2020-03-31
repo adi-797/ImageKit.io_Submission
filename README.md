@@ -33,7 +33,7 @@ How to execute:
 1) Make sure you have Python 3 installed and all Library requirements have been met.
 
 For installing the required libraries,
-Open your command shell and execute the command-> pip install django, dnspython, pymongo
+Open your command shell and execute the command-> pip install django dnspython pymongo
 
 2) Open your command shell and navigate into ..\ImageKitioAssignment
 2) Execute the command-> python manage.py runserver
